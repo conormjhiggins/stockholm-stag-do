@@ -2,292 +2,276 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Stockholm Stag Do 🇸🇪</title>
 <style>
-  :root { color-scheme: light; }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f4f8; color: #1a202c; min-height: 100vh; }
-  .hero { background: linear-gradient(135deg, #006AA7 0%, #004d7a 50%, #FECC02 100%); color: white; padding: 24px 20px 18px; text-align: center; }
-  .hero h1 { font-size: 1.7rem; font-weight: 800; }
-  .hero p { font-size: 0.9rem; opacity: 0.92; margin-top: 3px; }
-  .hero .meta { display: flex; justify-content: center; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-  .hero .badge { background: rgba(255,255,255,0.2); border-radius: 20px; padding: 3px 12px; font-size: 0.78rem; font-weight: 600; }
-  .info-bar { background: #1a202c; color: #e2e8f0; padding: 7px 16px; text-align: center; font-size: 0.76rem; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; row-gap: 3px; }
-  .info-bar strong { color: #FECC02; }
-  .bnb-bar { background: #2d3748; color: #cbd5e0; padding: 6px 16px; text-align: center; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; }
-  .bnb-bar strong { color: #FECC02; }
-  .tabs { display: flex; overflow-x: auto; background: white; border-bottom: 2px solid #e2e8f0; position: sticky; top: 0; z-index: 100; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-  .tabs::-webkit-scrollbar { display: none; }
-  .tab { flex-shrink: 0; padding: 11px 12px; font-size: 0.78rem; font-weight: 600; border: none; background: none; cursor: pointer; color: #718096; border-bottom: 3px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: all 0.2s; }
-  .tab.active { color: #006AA7; border-bottom-color: #006AA7; }
-  .content { padding: 14px; max-width: 700px; margin: 0 auto; }
-  .section { display: none; }
-  .section.active { display: block; }
-  .vote-intro { background: linear-gradient(135deg, #EBF8FF, #BEE3F8); border: 1px solid #90cdf4; border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; }
-  .vote-intro h3 { font-size: 0.9rem; font-weight: 700; color: #2b6cb0; margin-bottom: 4px; }
-  .vote-intro p { font-size: 0.8rem; color: #4a5568; line-height: 1.4; }
-  .day-block { margin-bottom: 16px; }
-  .day-block-header { background: linear-gradient(90deg, #006AA7, #0080cc); color: white; padding: 11px 16px; border-radius: 10px 10px 0 0; font-size: 0.88rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
-  .day-block-header .sub { font-size: 0.72rem; opacity: 0.8; font-weight: 400; margin-top: 2px; }
-  .day-block-body { background: white; border-radius: 0 0 10px 10px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
-  .time-slot { margin-bottom: 16px; }
-  .time-slot:last-child { margin-bottom: 0; }
-  .slot-label { font-size: 0.72rem; font-weight: 800; color: #006AA7; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-  .slot-label::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
-  .suggestion-card { border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 12px; margin-bottom: 8px; background: #fafafa; transition: border-color 0.2s, background 0.2s; }
-  .suggestion-card:last-child { margin-bottom: 0; }
-  .suggestion-card.voted { border-color: #006AA7; background: #EBF8FF; }
-  .suggestion-card.top-voted { border-color: #FECC02; background: #FFFFF0; }
-  .card-top { display: flex; align-items: flex-start; gap: 10px; }
-  .card-emoji { font-size: 1.4rem; flex-shrink: 0; line-height: 1; margin-top: 1px; }
-  .card-body { flex: 1; min-width: 0; }
-  .card-name { font-size: 0.88rem; font-weight: 700; margin-bottom: 3px; }
-  .card-desc { font-size: 0.78rem; color: #4a5568; line-height: 1.4; margin-bottom: 7px; }
-  .card-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-  .price-tag { background: #F0FFF4; border: 1px solid #68d391; color: #276749; border-radius: 5px; padding: 2px 8px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
-  .link-btn { background: #EBF8FF; border: 1px solid #90cdf4; color: #2b6cb0; border-radius: 5px; padding: 2px 8px; font-size: 0.72rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 3px; white-space: nowrap; }
-  .vote-row { display: flex; align-items: center; justify-content: space-between; margin-top: 9px; padding-top: 8px; border-top: 1px solid #e2e8f0; }
-  .vote-btn { display: flex; align-items: center; gap: 5px; background: white; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 5px 14px; cursor: pointer; font-size: 0.78rem; font-weight: 700; color: #718096; transition: all 0.2s; }
-  .vote-btn:hover { border-color: #006AA7; color: #006AA7; background: #EBF8FF; }
-  .vote-btn.active { border-color: #006AA7; color: #006AA7; background: #EBF8FF; }
-  .leader-badge { background: #FECC02; color: #1a202c; border-radius: 4px; padding: 2px 8px; font-size: 0.7rem; font-weight: 800; }
-  .section-title { font-size: 1rem; font-weight: 700; color: #2d3748; margin: 16px 0 10px; padding-bottom: 6px; border-bottom: 2px solid #e2e8f0; }
-  .section-title:first-child { margin-top: 0; }
-  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media (max-width: 480px) { .card-grid { grid-template-columns: 1fr; } }
-  .rec-card { background: white; border-radius: 12px; padding: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); border-left: 4px solid #006AA7; }
-  .rec-card.gold { border-left-color: #FECC02; }
-  .rec-card.green { border-left-color: #38a169; }
-  .rec-card.purple { border-left-color: #805ad5; }
-  .rec-card.red { border-left-color: #e53e3e; }
-  .rec-card .emoji { font-size: 1.4rem; margin-bottom: 6px; display: block; }
-  .rec-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
-  .rec-card p { font-size: 0.78rem; color: #4a5568; line-height: 1.4; }
-  .rec-card .tag { display: inline-block; margin-top: 6px; background: #EBF8FF; color: #2b6cb0; border-radius: 4px; padding: 2px 7px; font-size: 0.7rem; font-weight: 600; }
-  .rec-card.gold .tag { background: #FFFFF0; color: #744210; }
-  .rec-card.green .tag { background: #F0FFF4; color: #276749; }
-  .rec-card.purple .tag { background: #FAF5FF; color: #553c9a; }
-  .rec-card.red .tag { background: #FFF5F5; color: #9b2c2c; }
-  .transport-option { background: white; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); display: flex; align-items: flex-start; gap: 12px; }
-  .transport-icon { font-size: 1.5rem; flex-shrink: 0; }
-  .transport-info h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 2px; }
-  .transport-info p { font-size: 0.8rem; color: #4a5568; line-height: 1.4; }
-  .transport-badges { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
-  .t-badge { font-size: 0.7rem; font-weight: 600; border-radius: 5px; padding: 2px 8px; }
-  .t-badge.fast { background: #C6F6D5; color: #22543d; }
-  .t-badge.group { background: #E9D8FD; color: #44337a; }
-  .route-box { background: #F0FFF4; border: 1px solid #68d391; border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
-  .route-box h3 { font-size: 0.88rem; font-weight: 700; color: #276749; margin-bottom: 8px; }
-  .route-row { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; margin-bottom: 6px; flex-wrap: wrap; }
-  .route-node { background: #006AA7; color: white; border-radius: 6px; padding: 3px 8px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
-  .route-node.yellow { background: #FECC02; color: #1a202c; }
-  .route-node.dark { background: #2d3748; }
-  .route-arrow { color: #38a169; font-weight: 700; font-size: 0.78rem; }
-  .tips-box { background: linear-gradient(135deg, #FFFFF0, #FEFCBF); border: 1px solid #ECC94B; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
-  .tips-box h3 { font-size: 0.88rem; font-weight: 700; color: #744210; margin-bottom: 8px; }
-  .tips-box ul { padding-left: 18px; }
-  .tips-box li { font-size: 0.82rem; color: #4a5568; margin-bottom: 5px; line-height: 1.4; }
-  .event-card-big { background: white; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); border-left: 4px solid #805ad5; }
-  .event-card-big.confirmed { border-left-color: #38a169; }
-  .event-card-big.tbc { border-left-color: #ECC94B; }
-  .event-card-big .ev-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 4px; }
-  .event-card-big h3 { font-size: 0.88rem; font-weight: 700; }
-  .event-card-big p { font-size: 0.78rem; color: #4a5568; line-height: 1.4; }
-  .ev-date-chip { background: #006AA7; color: white; border-radius: 6px; padding: 3px 9px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
-  .ev-date-chip.green { background: #38a169; }
-  .ev-confirmed { display: inline-block; margin-top: 6px; background: #F0FFF4; border: 1px solid #68d391; color: #276749; border-radius: 4px; padding: 2px 8px; font-size: 0.7rem; font-weight: 700; }
-  .ev-tbc { display: inline-block; margin-top: 6px; background: #FFFFF0; border: 1px solid #ECC94B; color: #744210; border-radius: 4px; padding: 2px 8px; font-size: 0.7rem; font-weight: 700; }
-  .nightlife-area { background: white; border-radius: 12px; margin-bottom: 14px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-  .area-header { padding: 10px 16px; font-weight: 700; font-size: 0.88rem; }
-  .area-header.dark { background: #1a202c; color: white; }
-  .area-header.blue { background: #EBF8FF; color: #2b6cb0; }
-  .area-header.yellow { background: #FFFFF0; color: #744210; }
-  .venue-list { padding: 10px 16px 14px; }
-  .venue-item { margin-bottom: 10px; }
-  .venue-item:last-child { margin-bottom: 0; }
-  .venue-item h4 { font-size: 0.85rem; font-weight: 700; }
-  .venue-item p { font-size: 0.78rem; color: #4a5568; margin-top: 1px; line-height: 1.4; }
-  .checklist-item { background: white; border-radius: 10px; padding: 11px 14px; margin-bottom: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); display: flex; align-items: flex-start; gap: 10px; }
-  .checklist-item input[type="checkbox"] { margin-top: 2px; width: 16px; height: 16px; accent-color: #006AA7; flex-shrink: 0; cursor: pointer; }
-  .checklist-item label { font-size: 0.84rem; line-height: 1.4; cursor: pointer; }
-  .checklist-item label span { display: block; font-size: 0.73rem; color: #718096; margin-top: 1px; }
-  .footer { text-align: center; padding: 20px; font-size: 0.74rem; color: #a0aec0; }
+:root{color-scheme:light}*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f4f8;color:#1a202c;min-height:100vh}
+.hero{background:linear-gradient(135deg,#006AA7,#004d7a 50%,#FECC02);color:white;padding:24px 20px 18px;text-align:center}
+.hero h1{font-size:1.7rem;font-weight:800}.hero p{font-size:.9rem;opacity:.92;margin-top:3px}
+.hero .meta{display:flex;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.hero .badge{background:rgba(255,255,255,.2);border-radius:20px;padding:3px 12px;font-size:.78rem;font-weight:600}
+.ib{background:#1a202c;color:#e2e8f0;padding:7px 16px;text-align:center;font-size:.76rem;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;row-gap:3px}
+.ib strong{color:#FECC02}
+.ab{background:#2d3748;color:#cbd5e0;padding:6px 16px;text-align:center;font-size:.75rem;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.ab strong{color:#FECC02}
+.tabs{display:flex;overflow-x:auto;background:white;border-bottom:2px solid #e2e8f0;position:sticky;top:0;z-index:100;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:11px 12px;font-size:.78rem;font-weight:600;border:none;background:none;cursor:pointer;color:#718096;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .2s}
+.tab.active{color:#006AA7;border-bottom-color:#006AA7}
+.content{padding:14px;max-width:700px;margin:0 auto}
+.section{display:none}.section.active{display:block}
+.vi{background:linear-gradient(135deg,#EBF8FF,#BEE3F8);border:1px solid #90cdf4;border-radius:12px;padding:12px 16px;margin-bottom:14px}
+.vi h3{font-size:.9rem;font-weight:700;color:#2b6cb0;margin-bottom:4px}
+.vi p{font-size:.8rem;color:#4a5568;line-height:1.4}
+.st{font-size:.95rem;font-weight:800;color:#2d3748;margin:18px 0 10px;padding-bottom:7px;border-bottom:2px solid #e2e8f0}
+.st:first-child{margin-top:0}
+.sc{border:1.5px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:8px;background:#fafafa;transition:border-color .2s,background .2s}
+.sc.voted{border-color:#006AA7;background:#EBF8FF}
+.sc.top-voted{border-color:#FECC02;background:#FFFFF0}
+.ct{display:flex;align-items:flex-start;gap:10px}
+.ce{font-size:1.4rem;flex-shrink:0;line-height:1;margin-top:1px}
+.cb{flex:1;min-width:0}
+.cn{font-size:.88rem;font-weight:700;margin-bottom:3px}
+.cd{font-size:.78rem;color:#4a5568;line-height:1.4;margin-bottom:7px}
+.cm{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.pt{background:#F0FFF4;border:1px solid #68d391;color:#276749;border-radius:5px;padding:2px 8px;font-size:.72rem;font-weight:700;white-space:nowrap}
+.lb{background:#EBF8FF;border:1px solid #90cdf4;color:#2b6cb0;border-radius:5px;padding:2px 8px;font-size:.72rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+.lb.map{background:#F0FFF4;border-color:#68d391;color:#276749}
+.vr{display:flex;align-items:center;justify-content:space-between;margin-top:9px;padding-top:8px;border-top:1px solid #e2e8f0}
+.vb{display:flex;align-items:center;gap:5px;background:white;border:1.5px solid #e2e8f0;border-radius:20px;padding:5px 14px;cursor:pointer;font-size:.78rem;font-weight:700;color:#718096;transition:all .2s}
+.vb:hover,.vb.active{border-color:#006AA7;color:#006AA7;background:#EBF8FF}
+.lb-badge{background:#FECC02;color:#1a202c;border-radius:4px;padding:2px 8px;font-size:.7rem;font-weight:800}
+.tb{background:linear-gradient(135deg,#FFFFF0,#FEFCBF);border:1px solid #ECC94B;border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.tb h3{font-size:.88rem;font-weight:700;color:#744210;margin-bottom:8px}
+.tb ul{padding-left:18px}.tb li{font-size:.82rem;color:#4a5568;margin-bottom:5px;line-height:1.4}
+.ecard{background:white;border-radius:12px;padding:14px 16px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-left:4px solid #805ad5}
+.ecard.confirmed{border-left-color:#38a169}.ecard.tbc{border-left-color:#ECC94B}
+.ecard .eh{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px}
+.ecard h3{font-size:.88rem;font-weight:700}.ecard p{font-size:.78rem;color:#4a5568;line-height:1.4}
+.dc{background:#006AA7;color:white;border-radius:6px;padding:3px 9px;font-size:.72rem;font-weight:700;white-space:nowrap;flex-shrink:0}
+.dc.g{background:#38a169}
+.ec{display:inline-block;margin-top:6px;background:#F0FFF4;border:1px solid #68d391;color:#276749;border-radius:4px;padding:2px 8px;font-size:.7rem;font-weight:700}
+.tc{display:inline-block;margin-top:6px;background:#FFFFF0;border:1px solid #ECC94B;color:#744210;border-radius:4px;padding:2px 8px;font-size:.7rem;font-weight:700}
+.rb{background:#F0FFF4;border:1px solid #68d391;border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.rb h3{font-size:.88rem;font-weight:700;color:#276749;margin-bottom:8px}
+.rr{display:flex;align-items:center;gap:6px;font-size:.78rem;margin-bottom:6px;flex-wrap:wrap}
+.rn{background:#006AA7;color:white;border-radius:6px;padding:3px 8px;font-size:.72rem;font-weight:700;white-space:nowrap}
+.rn.y{background:#FECC02;color:#1a202c}.rn.d{background:#2d3748}
+.ra{color:#38a169;font-weight:700;font-size:.78rem}
+.to{background:white;border-radius:12px;padding:14px 16px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);display:flex;align-items:flex-start;gap:12px}
+.ti{font-size:1.5rem;flex-shrink:0}.tinfo h3{font-size:.88rem;font-weight:700;margin-bottom:2px}
+.tinfo p{font-size:.8rem;color:#4a5568;line-height:1.4}
+.tbadges{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.tbg{font-size:.7rem;font-weight:600;border-radius:5px;padding:2px 8px}
+.tbg.f{background:#C6F6D5;color:#22543d}.tbg.g{background:#E9D8FD;color:#44337a}
+.ci{background:white;border-radius:10px;padding:11px 14px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;align-items:flex-start;gap:10px}
+.ci input[type=checkbox]{margin-top:2px;width:16px;height:16px;accent-color:#006AA7;flex-shrink:0;cursor:pointer}
+.ci label{font-size:.84rem;line-height:1.4;cursor:pointer}
+.ci label span{display:block;font-size:.73rem;color:#718096;margin-top:1px}
+.show-cl{display:block;text-align:center;margin:20px 0 10px;background:#EBF8FF;border:1px solid #90cdf4;color:#2b6cb0;border-radius:8px;padding:8px 16px;font-size:.82rem;font-weight:600;cursor:pointer;width:100%}
+#checklist-wrap{display:none}
+.footer{text-align:center;padding:20px;font-size:.74rem;color:#a0aec0}
 </style>
 </head>
 <body>
 <div class="hero">
   <h1>🇸🇪 Stockholm Stag Do</h1>
-  <p>Vote on what you want to do — then book the winners!</p>
+  <p>+1 the things you want to do — leaders get booked!</p>
   <div class="meta">
     <span class="badge">🗓 Fri 1 – Mon 4 May 2026</span>
     <span class="badge">👥 7 lads</span>
-    <span class="badge">🏠 Älvsjö · 9 min to city</span>
+    <span class="badge"><a href="https://www.google.com/maps/search/?api=1&query=H%C3%B6rningsholmsv%C3%A4gen+2+%C3%84lvsj%C3%B6+Stockholm" target="_blank" style="color:white;text-decoration:none">🏠 Älvsjö</a> · 9 min to city</span>
   </div>
 </div>
-<div class="info-bar">✈️ <strong>MAN 10:20 → ARN T5 13:40 Fri</strong> &nbsp;|&nbsp; 🏠 <strong>Check-in 16:00 Fri</strong> &nbsp;|&nbsp; 🔑 <strong>Checkout 11:00 Mon</strong> &nbsp;|&nbsp; ✈️ <strong>ARN 18:20 Mon</strong></div>
-<div class="bnb-bar">🏠 <strong>Hörningsholmsvägen 2, Älvsjö</strong> &nbsp;·&nbsp; 🚂 ~10 min walk to Älvsjö station &nbsp;·&nbsp; ⚡ 9 min to Stockholm Central</div>
+<div class="ib">✈️ <strong>MAN 10:20 → ARN 13:40 Fri</strong> &nbsp;|&nbsp; 🏠 <strong>Check-in 16:00 Fri</strong> &nbsp;|&nbsp; 🔑 <strong>Checkout 11:00 Mon</strong> &nbsp;|&nbsp; ✈️ <strong>ARN 18:20 Mon</strong></div>
+<div class="ab">🏠 <a href="https://www.google.com/maps/search/?api=1&query=H%C3%B6rningsholmsv%C3%A4gen+2+%C3%84lvsj%C3%B6+Stockholm" target="_blank" style="color:#FECC02;font-weight:700">Hörningsholmsvägen 2, Älvsjö</a> &nbsp;·&nbsp; 🚂 <a href="https://www.google.com/maps/search/?api=1&query=%C3%84lvsj%C3%B6+station+Stockholm" target="_blank" style="color:#cbd5e0">Älvsjö station</a> ~10 min walk &nbsp;·&nbsp; ⚡ 9 min to Stockholm Central</div>
 <div class="tabs">
-  <button class="tab active" onclick="showTab('vote',this)">🗳 Vote</button>
-  <button class="tab" onclick="showTab('events',this)">🎪 Events</button>
-  <button class="tab" onclick="showTab('nightlife',this)">🍻 Bars &amp; Clubs</button>
+  <button class="tab active" onclick="showTab('activities',this)">🏅 Activities</button>
+  <button class="tab" onclick="showTab('nights',this)">🌃 Nights Out</button>
   <button class="tab" onclick="showTab('food',this)">🍽 Food</button>
+  <button class="tab" onclick="showTab('events',this)">🎪 Events</button>
   <button class="tab" onclick="showTab('transport',this)">🚂 Getting Around</button>
-  <button class="tab" onclick="showTab('checklist',this)">✅ Checklist</button>
 </div>
 <div class="content">
-
-<!-- VOTE TAB -->
-<div id="vote" class="section active">
-  <div class="vote-intro"><h3>🗳 Vote for what you want to do!</h3><p>Tap 👍 on your favourites — the leaders get booked. Prices are per person estimates in GBP. Tap 🔗 to check out each option.</p></div>
-
-  <div class="day-block"><div class="day-block-header"><div><div>📅 Friday 1 May — Arrival Evening</div><div class="sub">Land 13:40 · Check-in from 16:00 · Labour Day 🇸🇪 · 🌳 Trädgården opens tonight!</div></div></div><div class="day-block-body"><div class="time-slot"><div class="slot-label">🌆 First Night Out (~8pm)</div>
-    <div class="suggestion-card" id="card-fri-1"><div class="card-top"><div class="card-emoji">🏘</div><div class="card-body"><div class="card-name">Gamla Stan Bar Crawl</div><div class="card-desc">Stockholm's medieval old town — cobblestone streets, traditional Swedish pubs, atmospheric first night. May Day means lively outdoor atmosphere all evening.</div><div class="card-meta"><span class="price-tag">💷 ~£25pp</span><a class="link-btn" href="https://www.visitstockholm.com/neighborhoods/gamla-stan/" target="_blank">🔗 Guide</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('fri-1')">👍 Vote <span id="vc-fri-1">0</span></button><span id="vl-fri-1"></span></div></div>
-    <div class="suggestion-card" id="card-fri-2"><div class="card-top"><div class="card-emoji">🎤</div><div class="card-body"><div class="card-name">Private Karaoke Room</div><div class="card-desc">Book a private karaoke booth for the whole group — get the banter going from night one. Most include a drinks package.</div><div class="card-meta"><span class="price-tag">💷 ~£15pp</span><a class="link-btn" href="https://thatsup.co.uk/stockholm/guide/karaoke-in-stockholm/" target="_blank">🔗 Options</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('fri-2')">👍 Vote <span id="vc-fri-2">0</span></button><span id="vl-fri-2"></span></div></div>
-    <div class="suggestion-card" id="card-fri-3"><div class="card-top"><div class="card-emoji">🌳</div><div class="card-body"><div class="card-name">Trädgården — Season Opening Night ✅</div><div class="card-desc">Stockholm's legendary outdoor club <strong>opens for its 2026 season on this exact night</strong> — May 1st! Ping pong, multiple zones, incredible atmosphere. Once-a-year opening night energy.</div><div class="card-meta"><span class="price-tag">💷 ~£10 entry + £8/drink</span><a class="link-btn" href="https://www.tradgarden.com" target="_blank">🔗 Trädgården</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('fri-3')">👍 Vote <span id="vc-fri-3">0</span></button><span id="vl-fri-3"></span></div></div>
-  </div></div></div>
-
-  <div class="day-block"><div class="day-block-header"><div><div>📅 Saturday 2 May — Morning (~10am)</div><div class="sub">First full day</div></div></div><div class="day-block-body"><div class="time-slot"><div class="slot-label">🌅 Morning Activity</div>
-    <div class="suggestion-card" id="card-satm-1"><div class="card-top"><div class="card-emoji">⚽</div><div class="card-body"><div class="card-name">5-a-Side Football — FC Urban</div><div class="card-desc">Bookable pitches across Stockholm. Download the app, pick a slot. Bibs and ball provided. Perfect for 7.</div><div class="card-meta"><span class="price-tag">💷 ~£12pp</span><a class="link-btn" href="https://www.fcurban.com/stockholm" target="_blank">🔗 FC Urban</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('satm-1')">👍 Vote <span id="vc-satm-1">0</span></button><span id="vl-satm-1"></span></div></div>
-    <div class="suggestion-card" id="card-satm-2"><div class="card-top"><div class="card-emoji">🏓</div><div class="card-body"><div class="card-name">Pickleball — Pickla Bromma</div><div class="card-desc">Sweden's premier pickleball park, 4 outdoor courts in Bromma (~20 min Uber). Opens May — perfect timing. Fast to learn, massively competitive.</div><div class="card-meta"><span class="price-tag">💷 ~£12pp</span><a class="link-btn" href="https://picklaparks.com/" target="_blank">🔗 Pickla Parks</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('satm-2')">👍 Vote <span id="vc-satm-2">0</span></button><span id="vl-satm-2"></span></div></div>
-    <div class="suggestion-card" id="card-satm-3"><div class="card-top"><div class="card-emoji">☕</div><div class="card-body"><div class="card-name">Slow Start — Fika &amp; Explore</div><div class="card-desc">Take it easy after Friday night. Big Swedish pastry breakfast, coffee, explore Stockholm's streets.</div><div class="card-meta"><span class="price-tag">💷 ~£8pp</span><a class="link-btn" href="https://www.visitstockholm.com/eat-drink/cafes/" target="_blank">🔗 Best cafés</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('satm-3')">👍 Vote <span id="vc-satm-3">0</span></button><span id="vl-satm-3"></span></div></div>
-  </div></div></div>
-
-  <div class="day-block"><div class="day-block-header"><div><div>📅 Saturday 2 May — Afternoon (~1–6pm)</div><div class="sub">🎵 AN ABSTRACT ILLUSION at The Node tonight · 🎤 Silvana Imam at Börsen tonight</div></div></div><div class="day-block-body">
-    <div class="time-slot"><div class="slot-label">🎯 Main Activity (~1pm)</div>
-      <div class="suggestion-card" id="card-sata-1"><div class="card-top"><div class="card-emoji">🪓</div><div class="card-body"><div class="card-name">Axe Throwing — Mad Axe Club</div><div class="card-desc">Dedicated axe throwing club in Norrmalm. Private group session ~1.5 hrs, pro instructor. Gets extremely competitive.</div><div class="card-meta"><span class="price-tag">💷 ~£18pp</span><a class="link-btn" href="https://madaxe.se" target="_blank">🔗 Mad Axe</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('sata-1')">👍 Vote <span id="vc-sata-1">0</span></button><span id="vl-sata-1"></span></div></div>
-      <div class="suggestion-card" id="card-sata-2"><div class="card-top"><div class="card-emoji">🏎</div><div class="card-body"><div class="card-name">Go-Karting — Järfälla Hyrkart</div><div class="card-desc">Indoor and outdoor tracks ~20 min north. Group race packages, tournament format. Full bragging rights.</div><div class="card-meta"><span class="price-tag">💷 ~£25pp</span><a class="link-btn" href="https://www.jarfallahyrkart.se/" target="_blank">🔗 Järfälla Hyrkart</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('sata-2')">👍 Vote <span id="vc-sata-2">0</span></button><span id="vl-sata-2"></span></div></div>
-      <div class="suggestion-card" id="card-sata-3"><div class="card-top"><div class="card-emoji">🌊</div><div class="card-body"><div class="card-name">Indoor Skydiving — Bodyflight Stockholm</div><div class="card-desc">World's highest wind tunnel in Bromma. Zero experience needed — instructors guide you. One of the most unique activities in Stockholm.</div><div class="card-meta"><span class="price-tag">💷 ~£35pp (2 flights)</span><a class="link-btn" href="https://indoorwingsuit.com/en/home/" target="_blank">🔗 Bodyflight</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('sata-3')">👍 Vote <span id="vc-sata-3">0</span></button><span id="vl-sata-3"></span></div></div>
-    </div>
-    <div class="time-slot"><div class="slot-label">🧖 Wind-Down (~4pm)</div>
-      <div class="suggestion-card" id="card-satb-1"><div class="card-top"><div class="card-emoji">🔥</div><div class="card-body"><div class="card-name">Swedish Sauna — Centralbadet</div><div class="card-desc">Luxury city-centre spa since 1904. Hot sauna, cold plunge, aromatherapy. Total recovery after activities.</div><div class="card-meta"><span class="price-tag">💷 ~£20pp</span><a class="link-btn" href="https://centralbadet.se" target="_blank">🔗 Centralbadet</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('satb-1')">👍 Vote <span id="vc-satb-1">0</span></button><span id="vl-satb-1"></span></div></div>
-      <div class="suggestion-card" id="card-satb-2"><div class="card-top"><div class="card-emoji">🏊</div><div class="card-body"><div class="card-name">Lakeside Sauna — Hellasgården</div><div class="card-desc">Traditional sauna with cold lake plunge in a forest, 15 min from city. Jump into a Swedish lake afterwards.</div><div class="card-meta"><span class="price-tag">💷 ~£10pp</span><a class="link-btn" href="https://hellasgarden.se" target="_blank">🔗 Hellasgården</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('satb-2')">👍 Vote <span id="vc-satb-2">0</span></button><span id="vl-satb-2"></span></div></div>
-      <div class="suggestion-card" id="card-satb-3"><div class="card-top"><div class="card-emoji">🎳</div><div class="card-body"><div class="card-name">Ballbreaker — Disco Bowling + Bar</div><div class="card-desc">Neon-lit venue with disco bowling, mini-golf, hunting simulators and a bar. One of Stockholm's best group venues.</div><div class="card-meta"><span class="price-tag">💷 ~£18pp</span><a class="link-btn" href="https://ballbreaker.se/" target="_blank">🔗 Ballbreaker</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('satb-3')">👍 Vote <span id="vc-satb-3">0</span></button><span id="vl-satb-3"></span></div></div>
-    </div>
-  </div></div>
-
-  <div class="day-block"><div class="day-block-header"><div><div>📅 Saturday 2 May — Dinner &amp; Night</div><div class="sub">🎵 AN ABSTRACT ILLUSION at The Node · 🎤 Silvana Imam at Börsen 21:00</div></div></div><div class="day-block-body">
-    <div class="time-slot"><div class="slot-label">🍽 Dinner (~7:30pm)</div>
-      <div class="suggestion-card" id="card-satd-1"><div class="card-top"><div class="card-emoji">🏙</div><div class="card-body"><div class="card-name">Tak — Rooftop Restaurant</div><div class="card-desc">Stunning rooftop views with Asian-Nordic menu. The most special dinner on the list. Book weeks ahead for 7.</div><div class="card-meta"><span class="price-tag">💷 ~£50pp</span><a class="link-btn" href="https://www.takstockholm.com" target="_blank">🔗 Tak</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('satd-1')">👍 Vote <span id="vc-satd-1">0</span></button><span id="vl-satd-1"></span></div></div>
-      <div class="suggestion-card" id="card-satd-2"><div class="card-top"><div class="card-emoji">🥂</div><div class="card-body"><div class="card-name">Riche — Stockholm Classic</div><div class="card-desc">Stockholm institution in Stureplan. Buzzing brasserie, great for groups, ideal before clubs.</div><div class="card-meta"><span class="price-tag">💷 ~£40pp</span><a class="link-btn" href="https://www.riche.se" target="_blank">🔗 Riche</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('satd-2')">👍 Vote <span id="vc-satd-2">0</span></button><span id="vl-satd-2"></span></div></div>
-      <div class="suggestion-card" id="card-satd-3"><div class="card-top"><div class="card-emoji">🛒</div><div class="card-body"><div class="card-name">Airbnb Feast — Östermalm Food Hall</div><div class="card-desc">Pick up incredible food from Stockholm's best indoor market and eat at the Airbnb. Cheaper, relaxed, social.</div><div class="card-meta"><span class="price-tag">💷 ~£20pp</span><a class="link-btn" href="https://en.ostermalmshallen.se/" target="_blank">🔗 Food Hall</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('satd-3')">👍 Vote <span id="vc-satd-3">0</span></button><span id="vl-satd-3"></span></div></div>
-    </div>
-    <div class="time-slot"><div class="slot-label">🎉 Night Out (~11pm+)</div>
-      <div class="suggestion-card" id="card-satn-1"><div class="card-top"><div class="card-emoji">🕵️</div><div class="card-body"><div class="card-name">Stureplan — Spy Bar / Café Opera / Berns</div><div class="card-desc">Stockholm's premier nightlife district. Spy Bar is the city's most iconic club. Café Opera legendary since 1980. Pre-book guestlist for 7.</div><div class="card-meta"><span class="price-tag">💷 ~£15 entry + £8/drink</span><a class="link-btn" href="https://cafeoperan.se" target="_blank">🔗 Café Opera</a><a class="link-btn" href="https://www.stureplansgruppen.se/nightlife/spy-bar/" target="_blank">🔗 Spy Bar</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('satn-1')">👍 Vote <span id="vc-satn-1">0</span></button><span id="vl-satn-1"></span></div></div>
-      <div class="suggestion-card" id="card-satn-2"><div class="card-top"><div class="card-emoji">🍸</div><div class="card-body"><div class="card-name">Speakeasy Night — Lucy's + Röda Huset</div><div class="card-desc">Lucy's Flower Shop (Stockholm's only speakeasy) then Röda Huset — #35 in the World's 50 Best Bars.</div><div class="card-meta"><span class="price-tag">💷 ~£50pp</span><a class="link-btn" href="https://rodahuset.nu/" target="_blank">🔗 Röda Huset</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('satn-2')">👍 Vote <span id="vc-satn-2">0</span></button><span id="vl-satn-2"></span></div></div>
-      <div class="suggestion-card" id="card-satn-3"><div class="card-top"><div class="card-emoji">🎤</div><div class="card-body"><div class="card-name">Karaoke Night + Södermalm Bars</div><div class="card-desc">Private karaoke booth then bar hop through Södermalm. More relaxed than Stureplan but brilliant fun.</div><div class="card-meta"><span class="price-tag">💷 ~£30pp</span><a class="link-btn" href="https://thatsup.co.uk/stockholm/guide/karaoke-in-stockholm/" target="_blank">🔗 Karaoke</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('satn-3')">👍 Vote <span id="vc-satn-3">0</span></button><span id="vl-satn-3"></span></div></div>
-    </div>
-  </div></div>
-
-  <div class="day-block"><div class="day-block-header"><div><div>📅 Sunday 3 May — Morning (~10:30am)</div><div class="sub">🎵 Pentatonix at Avicii Arena tonight — confirmed!</div></div></div><div class="day-block-body"><div class="time-slot"><div class="slot-label">🌅 Morning Activity</div>
-    <div class="suggestion-card" id="card-sunm-1"><div class="card-top"><div class="card-emoji">🏓</div><div class="card-body"><div class="card-name">Pickleball — Pickla Bromma</div><div class="card-desc">If not done Saturday — 4 outdoor courts open from May. ~20 min Uber from Älvsjö.</div><div class="card-meta"><span class="price-tag">💷 ~£12pp</span><a class="link-btn" href="https://picklaparks.com/" target="_blank">🔗 Pickla Parks</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('sunm-1')">👍 Vote <span id="vc-sunm-1">0</span></button><span id="vl-sunm-1"></span></div></div>
-    <div class="suggestion-card" id="card-sunm-2"><div class="card-top"><div class="card-emoji">🏎</div><div class="card-body"><div class="card-name">Go-Karting — Järfälla Hyrkart</div><div class="card-desc">If not done Saturday — indoor and outdoor tracks, ~20 min north. Sunday morning is perfect — less busy.</div><div class="card-meta"><span class="price-tag">💷 ~£25pp</span><a class="link-btn" href="https://www.jarfallahyrkart.se/" target="_blank">🔗 Järfälla Hyrkart</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('sunm-2')">👍 Vote <span id="vc-sunm-2">0</span></button><span id="vl-sunm-2"></span></div></div>
-    <div class="suggestion-card" id="card-sunm-3"><div class="card-top"><div class="card-emoji">⚽</div><div class="card-body"><div class="card-name">5-a-Side Football — FC Urban</div><div class="card-desc">If not done Saturday — download FC Urban app, book a pitch. Sunday morning football is a classic.</div><div class="card-meta"><span class="price-tag">💷 ~£12pp</span><a class="link-btn" href="https://www.fcurban.com/stockholm" target="_blank">🔗 FC Urban</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('sunm-3')">👍 Vote <span id="vc-sunm-3">0</span></button><span id="vl-sunm-3"></span></div></div>
-  </div></div></div>
-
-  <div class="day-block"><div class="day-block-header"><div><div>📅 Sunday 3 May — Afternoon &amp; Evening</div><div class="sub">🎵 Pentatonix at Avicii Arena · 🎡 Gröna Lund open all weekend</div></div></div><div class="day-block-body">
-    <div class="time-slot"><div class="slot-label">🎯 Afternoon (~1pm)</div>
-      <div class="suggestion-card" id="card-suna-1"><div class="card-top"><div class="card-emoji">🔥</div><div class="card-body"><div class="card-name">Swedish Sauna — Centralbadet or Hellasgården</div><div class="card-desc">The most Swedish thing you'll do all trip — city-centre luxury spa or lakeside forest sauna with cold lake plunge.</div><div class="card-meta"><span class="price-tag">💷 ~£10–20pp</span><a class="link-btn" href="https://centralbadet.se" target="_blank">🔗 Centralbadet</a><a class="link-btn" href="https://hellasgarden.se" target="_blank">🔗 Hellasgården</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('suna-1')">👍 Vote <span id="vc-suna-1">0</span></button><span id="vl-suna-1"></span></div></div>
-      <div class="suggestion-card" id="card-suna-2"><div class="card-top"><div class="card-emoji">⛳</div><div class="card-body"><div class="card-name">Golfbaren — Mini-Golf + Cocktails</div><div class="card-desc">1930s American-inspired bar with indoor mini-golf and great cocktails. Low-effort, high-fun Sunday afternoon.</div><div class="card-meta"><span class="price-tag">💷 ~£15pp</span><a class="link-btn" href="https://www.golfbaren.se" target="_blank">🔗 Golfbaren</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('suna-2')">👍 Vote <span id="vc-suna-2">0</span></button><span id="vl-suna-2"></span></div></div>
-      <div class="suggestion-card" id="card-suna-3"><div class="card-top"><div class="card-emoji">🎡</div><div class="card-body"><div class="card-name">Gröna Lund — Amusement Park ✅</div><div class="card-desc">Waterfront amusement park on Djurgården — <strong>confirmed open all weekend</strong> (opened 25 April). Rides, games, harbour views, live concerts.</div><div class="card-meta"><span class="price-tag">💷 ~£18pp entry</span><a class="link-btn" href="https://www.gronalund.com/en" target="_blank">🔗 Gröna Lund</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('suna-3')">👍 Vote <span id="vc-suna-3">0</span></button><span id="vl-suna-3"></span></div></div>
-    </div>
-    <div class="time-slot"><div class="slot-label">🍽 Sunday Dinner (~7pm)</div>
-      <div class="suggestion-card" id="card-sund-1"><div class="card-top"><div class="card-emoji">🍳</div><div class="card-body"><div class="card-name">Rolfs Kök</div><div class="card-desc">One of Stockholm's most group-friendly restaurants. Swedish-European menu, warm atmosphere, consistently great.</div><div class="card-meta"><span class="price-tag">💷 ~£35pp</span><a class="link-btn" href="https://www.rolfskok.se" target="_blank">🔗 Rolfs Kök</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('sund-1')">👍 Vote <span id="vc-sund-1">0</span></button><span id="vl-sund-1"></span></div></div>
-      <div class="suggestion-card" id="card-sund-2"><div class="card-top"><div class="card-emoji">🏙</div><div class="card-body"><div class="card-name">Tak Rooftop</div><div class="card-desc">If not done Saturday — rooftop views and Asian-Nordic menu. Most memorable restaurant on the trip.</div><div class="card-meta"><span class="price-tag">💷 ~£50pp</span><a class="link-btn" href="https://www.takstockholm.com" target="_blank">🔗 Tak</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('sund-2')">👍 Vote <span id="vc-sund-2">0</span></button><span id="vl-sund-2"></span></div></div>
-      <div class="suggestion-card" id="card-sund-3"><div class="card-top"><div class="card-emoji">🥂</div><div class="card-body"><div class="card-name">Riche</div><div class="card-desc">If not done Saturday — right in the Stureplan action. Great Sunday atmosphere, easy to pivot to clubs after.</div><div class="card-meta"><span class="price-tag">💷 ~£40pp</span><a class="link-btn" href="https://www.riche.se" target="_blank">🔗 Riche</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('sund-3')">👍 Vote <span id="vc-sund-3">0</span></button><span id="vl-sund-3"></span></div></div>
-    </div>
-    <div class="time-slot"><div class="slot-label">🎉 Sunday Night (~10pm+)</div>
-      <div class="suggestion-card" id="card-sunn-1"><div class="card-top"><div class="card-emoji">🌳</div><div class="card-body"><div class="card-name">Trädgården — Outdoor Summer Club ✅</div><div class="card-desc">Legendary outdoor club — <strong>confirmed open from 1 May</strong>. Ping pong, multiple zones, incredible atmosphere. Best summer night out in Stockholm.</div><div class="card-meta"><span class="price-tag">💷 ~£10 entry + £8/drink</span><a class="link-btn" href="https://www.tradgarden.com" target="_blank">🔗 Trädgården</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('sunn-1')">👍 Vote <span id="vc-sunn-1">0</span></button><span id="vl-sunn-1"></span></div></div>
-      <div class="suggestion-card" id="card-sunn-2"><div class="card-top"><div class="card-emoji">🚢</div><div class="card-body"><div class="card-name">Patricia — Karaoke Ship</div><div class="card-desc">A docked multi-level ship — karaoke dance floor until 5am. Three dancefloors, six bars. Absolutely wild, totally unique.</div><div class="card-meta"><span class="price-tag">💷 ~£10 entry + £8/drink</span><a class="link-btn" href="https://www.patriciastockholm.se/" target="_blank">🔗 Patricia</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('sunn-2')">👍 Vote <span id="vc-sunn-2">0</span></button><span id="vl-sunn-2"></span></div></div>
-      <div class="suggestion-card" id="card-sunn-3"><div class="card-top"><div class="card-emoji">🕵️</div><div class="card-body"><div class="card-name">Stureplan Clubs (If Not Done Saturday)</div><div class="card-desc">Spy Bar, Café Opera or Berns — Stockholm clubs are great on Sundays too. Arrive after midnight, dress smart.</div><div class="card-meta"><span class="price-tag">💷 ~£15 entry + £8/drink</span><a class="link-btn" href="https://www.stureplansgruppen.se/nightlife/spy-bar/" target="_blank">🔗 Spy Bar</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('sunn-3')">👍 Vote <span id="vc-sunn-3">0</span></button><span id="vl-sunn-3"></span></div></div>
-    </div>
-  </div></div>
-
-  <div class="day-block"><div class="day-block-header"><div><div>📅 Monday 4 May — Last Morning (checkout 11:00)</div><div class="sub">✈️ Flight 18:20 — leave by 15:45 · 🎸 Plini at Debaser 7pm</div></div></div><div class="day-block-body"><div class="time-slot"><div class="slot-label">☀️ Final Morning</div>
-    <div class="suggestion-card" id="card-mon-1"><div class="card-top"><div class="card-emoji">🏘</div><div class="card-body"><div class="card-name">Gamla Stan Explore + Souvenirs</div><div class="card-desc">Medieval old town, Swedish souvenirs, final fika. 9 min train from Älvsjö — easy to get in and back before departure.</div><div class="card-meta"><span class="price-tag">💷 ~£10pp</span><a class="link-btn" href="https://www.visitstockholm.com/neighborhoods/gamla-stan/" target="_blank">🔗 Guide</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('mon-1')">👍 Vote <span id="vc-mon-1">0</span></button><span id="vl-mon-1"></span></div></div>
-    <div class="suggestion-card" id="card-mon-2"><div class="card-top"><div class="card-emoji">🎵</div><div class="card-body"><div class="card-name">ABBA Museum</div><div class="card-desc">One of the best music museums in Europe — interactive, hilarious even if you're not a fan. On Djurgården, back for checkout.</div><div class="card-meta"><span class="price-tag">💷 ~£18pp</span><a class="link-btn" href="https://www.abbathemuseum.com" target="_blank">🔗 ABBA Museum</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('mon-2')">👍 Vote <span id="vc-mon-2">0</span></button><span id="vl-mon-2"></span></div></div>
-    <div class="suggestion-card" id="card-mon-3"><div class="card-top"><div class="card-emoji">🥐</div><div class="card-body"><div class="card-name">Final Brunch + Pack-up</div><div class="card-desc">Pack bags, last big sit-down brunch. Raise a final toast. Simple, social, saves energy for the airport bar.</div><div class="card-meta"><span class="price-tag">💷 ~£18pp</span><a class="link-btn" href="https://thatsup.co.uk/stockholm/guide/brunch-in-stockholm/" target="_blank">🔗 Brunch guide</a></div></div></div><div class="vote-row"><button class="vote-btn" onclick="vote('mon-3')">👍 Vote <span id="vc-mon-3">0</span></button><span id="vl-mon-3"></span></div></div>
-  </div></div></div>
+<div id="activities" class="section active">
+<div class="vi"><h3>🏅 Vote for activities!</h3><p>Tap 👍 on what you want to do — leaders get booked. Prices are per person estimates in GBP.</p></div>
+<div class="st">⚽ Sport</div>
+<div class="sc" id="card-act-1"><div class="ct"><div class="ce">⚽</div><div class="cb"><div class="cn">5-a-Side Football — FC Urban</div><div class="cd">Bookable 5-a-side or 7-a-side pitches across Stockholm. App booking, bibs included. Perfect for 7.</div><div class="cm"><span class="pt">~£12pp</span><a class="lb" href="https://www.fcurban.com/stockholm" target="_blank">FC Urban</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=FC+Urban+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('act-1')">👍 <span class="vc" id="vc-act-1">0</span></button><span id="vl-act-1"></span></div></div>
+<div class="sc" id="card-act-2"><div class="ct"><div class="ce">🎾</div><div class="cb"><div class="cn">Padel — NK Padel by ASCARO</div><div class="cd">Rooftop courts right in the city centre, walk from T-Centralen. Book via Matchi or Playtomic.</div><div class="cm"><span class="pt">~£12pp</span><a class="lb" href="https://www.ascaropadel.com/en-us" target="_blank">ASCARO Padel</a><a class="lb" href="https://www.visitstockholm.com/see-do/activities/get-out-on-the-padel-courts-in-stockholm/" target="_blank">Guide</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=NK+Padel+ASCARO+Regeringsgatan+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('act-2')">👍 <span class="vc" id="vc-act-2">0</span></button><span id="vl-act-2"></span></div></div>
+<div class="sc" id="card-act-3"><div class="ct"><div class="ce">🏓</div><div class="cb"><div class="cn">Pickleball — Pickla Bromma</div><div class="cd">4 outdoor courts, opens May. ~20 min Uber from Älvsjö. Fast to learn, massively competitive.</div><div class="cm"><span class="pt">~£12pp</span><a class="lb" href="https://picklaparks.com/" target="_blank">Pickla Parks</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Pickla+Parks+Bromma+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('act-3')">👍 <span class="vc" id="vc-act-3">0</span></button><span id="vl-act-3"></span></div></div>
+<div class="st">🎯 Action &amp; Adventure</div>
+<div class="sc" id="card-act-4"><div class="ct"><div class="ce">🪓</div><div class="cb"><div class="cn">Axe Throwing — Mad Axe Club</div><div class="cd">Stockholm's only dedicated axe throwing venue, city centre. Private group session ~1hr, instructor included.</div><div class="cm"><span class="pt">~£18pp</span><a class="lb" href="https://madaxe.se" target="_blank">Mad Axe</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Mad+Axe+Throwing+Club+Kammakargatan+18+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('act-4')">👍 <span class="vc" id="vc-act-4">0</span></button><span id="vl-act-4"></span></div></div>
+<div class="sc" id="card-act-5"><div class="ct"><div class="ce">🏎</div><div class="cb"><div class="cn">Go-Karting — Järfälla Hyrkart</div><div class="cd">Indoor + outdoor tracks ~20 min north. Tournament race packages for groups.</div><div class="cm"><span class="pt">~£25pp</span><a class="lb" href="https://www.jarfallahyrkart.se/" target="_blank">Järfälla Hyrkart</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=J%C3%A4rf%C3%A4lla+Hyrkart+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('act-5')">👍 <span class="vc" id="vc-act-5">0</span></button><span id="vl-act-5"></span></div></div>
+<div class="sc" id="card-act-6"><div class="ct"><div class="ce">💨</div><div class="cb"><div class="cn">Indoor Skydiving — Bodyflight Stockholm</div><div class="cd">World's highest wind tunnel in Bromma (~20 min). Zero experience needed, instructors guide you.</div><div class="cm"><span class="pt">~£35pp</span><a class="lb" href="https://indoorwingsuit.com/en/home/" target="_blank">Bodyflight</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Bodyflight+Indoor+Skydiving+Bromma+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('act-6')">👍 <span class="vc" id="vc-act-6">0</span></button><span id="vl-act-6"></span></div></div>
+<div class="sc" id="card-act-7"><div class="ct"><div class="ce">🎡</div><div class="cb"><div class="cn">Gröna Lund ✅</div><div class="cd">Iconic waterfront amusement park on Djurgården, confirmed open all weekend from 25 April.</div><div class="cm"><span class="pt">~£18pp</span><a class="lb" href="https://www.gronalund.com/en" target="_blank">Gröna Lund</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Gr%C3%B6na+Lund+Djurg%C3%A5rden+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('act-7')">👍 <span class="vc" id="vc-act-7">0</span></button><span id="vl-act-7"></span></div></div>
+<div class="st">🎭 Entertainment</div>
+<div class="sc" id="card-act-8"><div class="ct"><div class="ce">📺</div><div class="cb"><div class="cn">On Air — Game Show Bar</div><div class="cd">TV-style game show studio in Gamla Stan. Compete in real shows, bar open throughout. Mälartorget 19.</div><div class="cm"><span class="pt">~£20pp</span><a class="lb" href="https://www.onairgameshows.com/en/locations/stockholm" target="_blank">On Air</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=On+Air+Game+Shows+M%C3%A4lartorget+19+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('act-8')">👍 <span class="vc" id="vc-act-8">0</span></button><span id="vl-act-8"></span></div></div>
+<div class="sc" id="card-act-9"><div class="ct"><div class="ce">🎳</div><div class="cb"><div class="cn">Ballbreaker — Disco Bowling + Bar</div><div class="cd">Neon-lit venue: disco bowling, mini-golf, hunting sims, bar. Great all-in-one group venue.</div><div class="cm"><span class="pt">~£18pp</span><a class="lb" href="https://ballbreaker.se/" target="_blank">Ballbreaker</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Ballbreaker+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('act-9')">👍 <span class="vc" id="vc-act-9">0</span></button><span id="vl-act-9"></span></div></div>
+<div class="sc" id="card-act-10"><div class="ct"><div class="ce">⛳</div><div class="cb"><div class="cn">Golfbaren — Mini-Golf + Cocktails</div><div class="cd">1930s American-inspired bar in Vasastan. Indoor mini-golf, group packages, great cocktails.</div><div class="cm"><span class="pt">~£15pp</span><a class="lb" href="https://www.golfbaren.se" target="_blank">Golfbaren</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Golfbaren+Vasastan+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('act-10')">👍 <span class="vc" id="vc-act-10">0</span></button><span id="vl-act-10"></span></div></div>
+<div class="sc" id="card-act-11"><div class="ct"><div class="ce">🎤</div><div class="cb"><div class="cn">Private Karaoke Room</div><div class="cd">Private booth for the whole group, most include a drinks package.</div><div class="cm"><span class="pt">~£15pp</span><a class="lb" href="https://thatsup.co.uk/stockholm/explore/bar/karaoke-bar/" target="_blank">Options</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Karaoke+Bar+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('act-11')">👍 <span class="vc" id="vc-act-11">0</span></button><span id="vl-act-11"></span></div></div>
+<div class="st">🔥 Relax &amp; Recover</div>
+<div class="sc" id="card-act-12"><div class="ct"><div class="ce">🔥</div><div class="cb"><div class="cn">Swedish Sauna — Centralbadet</div><div class="cd">City-centre luxury spa since 1904. Hot sauna, cold plunge. The most authentic Swedish experience.</div><div class="cm"><span class="pt">~£20pp</span><a class="lb" href="https://centralbadet.se" target="_blank">Centralbadet</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Centralbadet+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('act-12')">👍 <span class="vc" id="vc-act-12">0</span></button><span id="vl-act-12"></span></div></div>
+<div class="sc" id="card-act-13"><div class="ct"><div class="ce">🏊</div><div class="cb"><div class="cn">Lakeside Sauna — Hellasgården</div><div class="cd">Sauna + cold lake plunge in forest, 15 min from city. More raw, seriously Swedish.</div><div class="cm"><span class="pt">~£10pp</span><a class="lb" href="https://hellasgarden.se" target="_blank">Hellasgården</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Hellasg%C3%A5rden+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('act-13')">👍 <span class="vc" id="vc-act-13">0</span></button><span id="vl-act-13"></span></div></div>
 </div>
-
-<!-- EVENTS TAB -->
-<div id="events" class="section">
-  <div class="section-title">🎪 Confirmed Events — 1–4 May 2026</div>
-  <div class="tips-box"><h3>✅ Verified live events on your trip</h3><ul><li>Green border = <strong>confirmed</strong> via live search · Amber = worth checking</li><li>Book tickets early — confirmed events will sell out</li></ul></div>
-  <div class="event-card-big confirmed"><div class="ev-header"><h3>🌳 Trädgården — Season Opening Night</h3><span class="ev-date-chip green">Fri 1 May</span></div><p>Stockholm's legendary outdoor club opens for its 2026 season on May 1st — your first night! Multiple zones, ping pong, incredible atmosphere. The best outdoor club in the city opens the exact night you arrive.</p><span class="ev-confirmed">✅ Confirmed — opens 1 May 2026</span>&nbsp;<a class="link-btn" href="https://www.tradgarden.com" target="_blank">🔗 Trädgården</a></div>
-  <div class="event-card-big confirmed"><div class="ev-header"><h3>🎤 Silvana Imam — Naturkraft 10 Year Anniversary</h3><span class="ev-date-chip green">Sat 2 May</span></div><p>Sweden's iconic hip-hop artist celebrates 10 years of Grammis-winning album "Naturkraft" at Börsen. Doors 19:30, show 21:00. One of the biggest Swedish music events of the weekend.</p><span class="ev-confirmed">✅ Confirmed via Tickster</span>&nbsp;<a class="link-btn" href="https://www.tickster.com/se/sv/events/zcdvyfy0mb5wyeu/2026-05-02/silvana-imam-naturkraft-10ar" target="_blank">🔗 Tickets</a></div>
-  <div class="event-card-big confirmed"><div class="ev-header"><h3>🎸 AN ABSTRACT ILLUSION — The Sleeping Cities Tour</h3><span class="ev-date-chip green">Sat 2 May</span></div><p>Swedish progressive metal band at The Node as part of their Scandinavian tour. Worth considering if anyone in the group is into rock/metal.</p><span class="ev-confirmed">✅ Confirmed via Songkick</span>&nbsp;<a class="link-btn" href="https://www.songkick.com/concerts/42825374" target="_blank">🔗 Tickets</a></div>
-  <div class="event-card-big confirmed"><div class="ev-header"><h3>🎵 Pentatonix — Live at Avicii Arena</h3><span class="ev-date-chip green">Sun 3 May</span></div><p>Global a cappella superstars at Avicii Arena (16,000 capacity). Massive confirmed event on Sunday night. Avicii Arena is at Globen — direct Pendeltåg from Älvsjö.</p><span class="ev-confirmed">✅ Confirmed via Songkick + Avicii Arena</span>&nbsp;<a class="link-btn" href="https://allevents.in/stockholm/pentatonix-stockholm-tickets/100029062465646" target="_blank">🔗 Tickets</a></div>
-  <div class="event-card-big confirmed"><div class="ev-header"><h3>🎸 Plini — Debaser Hornstulls Strand</h3><span class="ev-date-chip green">Mon 4 May</span></div><p>Australian prog-rock guitarist at Debaser on the Södermalm waterfront, 7pm. Brilliant final evening option — checkout is 11am so plenty of time first.</p><span class="ev-confirmed">✅ Confirmed via Songkick</span>&nbsp;<a class="link-btn" href="https://www.songkick.com/concerts/42819088-plini-at-debaser-strand" target="_blank">🔗 Tickets</a></div>
-  <div class="event-card-big confirmed"><div class="ev-header"><h3>🎡 Gröna Lund — Already Open All Weekend</h3><span class="ev-date-chip green">All Weekend</span></div><p>Waterfront amusement park on Djurgården opened April 25th — fully open all weekend. Rides, games, harbour views, live concerts.</p><span class="ev-confirmed">✅ Open from 25 April 2026</span>&nbsp;<a class="link-btn" href="https://www.gronalund.com/en" target="_blank">🔗 Gröna Lund</a></div>
-  <div class="event-card-big"><div class="ev-header"><h3>🎭 George Dalaras — Filadelfia</h3><span class="ev-date-chip">Fri 1 May</span></div><p>Legendary Greek singer on your arrival evening. Worth knowing about if any of the lads are fans.</p><span class="ev-confirmed">✅ Confirmed via Songkick</span></div>
-  <div class="event-card-big tbc"><div class="ev-header"><h3>🎉 Första Maj — Labour Day</h3><span class="ev-date-chip" style="background:#ECC94B;color:#1a202c">Fri 1 May</span></div><p>Sweden's Labour Day — public holiday with outdoor marches and gatherings across the city. Humlegården and Kungsträdgården are focal points. Lively atmosphere on arrival day. Bars stay open.</p><span class="ev-tbc">⚠️ Annual event — always happens</span></div>
-  <div class="event-card-big tbc"><div class="ev-header"><h3>⚽ Allsvenskan Matchday</h3><span class="ev-date-chip" style="background:#ECC94B;color:#1a202c">Sat 2 or Sun 3</span></div><p>Swedish top-flight football across the weekend. AIK, Djurgårdens IF, Hammarby may have home games. Affordable tickets (~£10–20). The big AIK vs Djurgården derby is 10 May — just too late!</p><span class="ev-tbc">⚠️ Check fixtures</span>&nbsp;<a class="link-btn" href="https://www.flashscore.com/football/sweden/allsvenskan/fixtures/" target="_blank">🔗 Flashscore</a></div>
+<div id="nights" class="section">
+<div class="vi"><h3>🌃 Vote for nights out!</h3><p>Tap 👍 on what sounds good. Prices are per person estimates.</p></div>
+<div class="st">🌟 Friday — Arrival Night</div>
+<div class="sc" id="card-night-1"><div class="ct"><div class="ce">🌳</div><div class="cb"><div class="cn">Trädgården ✅ — Fri 1 May Opening Night</div><div class="cd">Legendary outdoor club under Skanstull bridge opens its 2026 season on your arrival night. Once-a-year energy.</div><div class="cm"><span class="pt">~£10 entry + £8/drink</span><a class="lb" href="https://www.tradgarden.com" target="_blank">Trädgården</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Tr%C3%A4dg%C3%A5rden+Under+Bron+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('night-1')">👍 <span class="vc" id="vc-night-1">0</span></button><span id="vl-night-1"></span></div></div>
+<div class="sc" id="card-night-2"><div class="ct"><div class="ce">🏘</div><div class="cb"><div class="cn">Gamla Stan Bar Crawl</div><div class="cd">Medieval old town — cobblestone streets, traditional Swedish pubs. Lively May Day atmosphere city-wide.</div><div class="cm"><span class="pt">~£25pp</span><a class="lb" href="https://www.visitstockholm.com/neighborhoods/gamla-stan/" target="_blank">Guide</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Gamla+Stan+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('night-2')">👍 <span class="vc" id="vc-night-2">0</span></button><span id="vl-night-2"></span></div></div>
+<div class="st">🔥 Saturday Night</div>
+<div class="sc" id="card-night-3"><div class="ct"><div class="ce">🕵️</div><div class="cb"><div class="cn">Stureplan — Spy Bar / Café Opera / Berns</div><div class="cd">Stockholm's premier nightlife district. Pre-book guestlist for 7, dress smart.</div><div class="cm"><span class="pt">~£15 entry + £8/drink</span><a class="lb" href="https://cafeoperan.se" target="_blank">Café Opera</a><a class="lb" href="https://www.stureplansgruppen.se/nightlife/spy-bar/" target="_blank">Spy Bar</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Stureplan+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('night-3')">👍 <span class="vc" id="vc-night-3">0</span></button><span id="vl-night-3"></span></div></div>
+<div class="sc" id="card-night-4"><div class="ct"><div class="ce">🌳</div><div class="cb"><div class="cn">Trädgården — Saturday Night</div><div class="cd">If not done Friday — the city's best summer outdoor club. Works brilliantly as the main Saturday.</div><div class="cm"><span class="pt">~£10 entry + £8/drink</span><a class="lb" href="https://www.tradgarden.com" target="_blank">Trädgården</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Tr%C3%A4dg%C3%A5rden+Under+Bron+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('night-4')">👍 <span class="vc" id="vc-night-4">0</span></button><span id="vl-night-4"></span></div></div>
+<div class="sc" id="card-night-5"><div class="ct"><div class="ce">🍸</div><div class="cb"><div class="cn">Speakeasy Night — Lucy's + Röda Huset</div><div class="cd">Lucy's Flower Shop (hidden speakeasy) then Röda Huset — #35 in the World's 50 Best Bars.</div><div class="cm"><span class="pt">~£50pp</span><a class="lb" href="https://rodahuset.nu/" target="_blank">Röda Huset</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=R%C3%B6da+Huset+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('night-5')">👍 <span class="vc" id="vc-night-5">0</span></button><span id="vl-night-5"></span></div></div>
+<div class="st">🎉 Any Night</div>
+<div class="sc" id="card-night-6"><div class="ct"><div class="ce">🚢</div><div class="cb"><div class="cn">Patricia — Karaoke Ship</div><div class="cd">Docked ship: karaoke dance floor until 5am. Three dancefloors, six bars, outdoor decks.</div><div class="cm"><span class="pt">~£10 entry + £8/drink</span><a class="lb" href="https://www.patriciastockholm.se/" target="_blank">Patricia</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Patricia+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('night-6')">👍 <span class="vc" id="vc-night-6">0</span></button><span id="vl-night-6"></span></div></div>
+<div class="sc" id="card-night-7"><div class="ct"><div class="ce">🎮</div><div class="cb"><div class="cn">N3rds Gaming Bar + Södermalm</div><div class="cd">Retro gaming bar + bar hop through Södermalm. Arcade machines, craft beers.</div><div class="cm"><span class="pt">~£25pp</span><a class="lb" href="https://www.instagram.com/n3rdsbar/" target="_blank">N3rds</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=N3rds+Bar+S%C3%B6dermalm+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('night-7')">👍 <span class="vc" id="vc-night-7">0</span></button><span id="vl-night-7"></span></div></div>
+<div class="tb" style="margin-top:16px"><h3>⚡ Nightlife Tips</h3><ul>
+<li>Clubs get going <strong>after midnight</strong> — don't arrive before 12:30am</li>
+<li>Smart casual at Stureplan venues — no trainers at top clubs</li>
+<li>Pre-book guestlist for 7 — email venues a week ahead</li>
+<li>Systembolaget closes <strong>18:00 weekdays, 15:00 Sat</strong> — stock up early!</li>
+<li>Last Pendeltåg to Älvsjö: ~<strong>01:15</strong>. After that: Uber home (~20 min, ~£15 split)</li>
+</ul></div>
 </div>
-
-<!-- BARS & CLUBS -->
-<div id="nightlife" class="section">
-  <div class="tips-box"><h3>⚡ Stockholm Nightlife Tips</h3><ul><li>Clubs get going <strong>after midnight</strong> — don't arrive before 12:30am</li><li>Smart casual at Stureplan — no trainers at top clubs</li><li>Pre-book guestlist/table for 7 — email venues a week ahead</li><li>Drinks ~£8–12 · Pre-drink from Systembolaget (closes 18:00 weekdays, 15:00 Sat)</li><li>Last Pendeltåg to Älvsjö: ~<strong>01:15</strong>. After that: Uber (~20 min, ~£15 split)</li></ul></div>
-  <div class="nightlife-area"><div class="area-header dark">🔥 Stureplan — Premier Nightlife</div><div class="venue-list"><div class="venue-item"><h4>🕵️ Spy Bar</h4><p>Stockholm's most iconic nightclub. Smart dress essential.</p></div><div class="venue-item"><h4>🎭 Café Opera</h4><p>Stockholm institution since 1980. Grand interior, multiple floors. Get on the guestlist.</p></div><div class="venue-item"><h4>🎵 Berns</h4><p>19th-century ballroom turned nightclub. One of Europe's most beautiful clubs.</p></div><div class="venue-item"><h4>💎 Rose</h4><p>High-end club with chandeliers and gold-framed mirrors.</p></div></div></div>
-  <div class="nightlife-area"><div class="area-header blue">🌿 Södermalm — Creative &amp; Chill</div><div class="venue-list"><div class="venue-item"><h4>🌳 Trädgården / Under Bron</h4><p>Legendary outdoor club. <strong>Confirmed open from 1 May 2026.</strong> The city's best summer night.</p></div><div class="venue-item"><h4>🚢 Patricia</h4><p>Docked ship with karaoke until 5am. Three dancefloors, six bars. Unmissable.</p></div><div class="venue-item"><h4>🍸 Lucy's Flower Shop</h4><p>Stockholm's only speakeasy, hidden behind an abandoned flower shop.</p></div></div></div>
-  <div class="nightlife-area"><div class="area-header yellow">🍹 World-Class Bars</div><div class="venue-list"><div class="venue-item"><h4>🏆 Röda Huset</h4><p>#35 in the World's 50 Best Bars. Sustainable Swedish cocktails.</p></div><div class="venue-item"><h4>🧊 Ice Bar Stockholm</h4><p>Everything made of ice. Vodka in ice glasses. Brilliant group photo moment.</p></div></div></div>
-</div>
-
-<!-- FOOD -->
 <div id="food" class="section">
-  <div class="section-title">🍽 Where to Eat</div>
-  <div class="card-grid">
-    <div class="rec-card"><span class="emoji">🏙</span><h3>Tak</h3><p>Rooftop with stunning city views. Asian-Nordic menu. Most special dinner on the list.</p><span class="tag">~£50pp · Book ahead</span></div>
-    <div class="rec-card gold"><span class="emoji">🥂</span><h3>Riche</h3><p>Stockholm classic in Stureplan. Brasserie-style, great for groups.</p><span class="tag">~£40pp · Stureplan</span></div>
-    <div class="rec-card green"><span class="emoji">🍳</span><h3>Rolfs Kök</h3><p>Top group-friendly restaurant. Swedish-European, warm and consistently great.</p><span class="tag">~£35pp · Group friendly</span></div>
-    <div class="rec-card purple"><span class="emoji">🏛</span><h3>Östermalm Food Hall</h3><p>Stockholm's incredible indoor market. Buy and feast at the Airbnb.</p><span class="tag">~£20pp · Market</span></div>
-    <div class="rec-card red"><span class="emoji">🥐</span><h3>Fika (Bakeries)</h3><p>Swedish fika every morning — cinnamon buns, cardamom twists, strong coffee. Non-negotiable.</p><span class="tag">~£5pp · Everywhere</span></div>
-    <div class="rec-card"><span class="emoji">🦐</span><h3>Must-Try Swedish Food</h3><p>Köttbullar, gravlax, pickled herring. At least one proper Swedish meal is a must.</p><span class="tag">Must try</span></div>
-  </div>
-  <div class="tips-box" style="margin-top:14px"><h3>🍺 Drinks Budget</h3><ul><li>Bar beer: ~£9–12 · Cocktail: ~£12–15</li><li>Systembolaget beer: ~£1.50–2.50 · Wine bottle: ~£6–11</li><li>Systembolaget closes <strong>18:00 weekdays, 15:00 Saturdays</strong> — stock up early!</li></ul></div>
+<div class="vi"><h3>🍽 Vote for where to eat!</h3><p>Tap 👍 on your picks. Prices are per person estimates including drinks.</p></div>
+<div class="st">🍽 Dinner</div>
+<div class="sc" id="card-food-1"><div class="ct"><div class="ce">🏙</div><div class="cb"><div class="cn">Tak — Rooftop Restaurant</div><div class="cd">Stunning rooftop views, Asian-inspired Nordic menu. Most special dinner on the trip. Book weeks in advance for 7.</div><div class="cm"><span class="pt">~£50pp</span><a class="lb" href="https://www.takstockholm.com" target="_blank">Tak</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Tak+Restaurant+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('food-1')">👍 <span class="vc" id="vc-food-1">0</span></button><span id="vl-food-1"></span></div></div>
+<div class="sc" id="card-food-2"><div class="ct"><div class="ce">🥂</div><div class="cb"><div class="cn">Riche — Stockholm Classic</div><div class="cd">Buzzing brasserie right in Stureplan. Great for groups, ideal before the clubs.</div><div class="cm"><span class="pt">~£40pp</span><a class="lb" href="https://www.riche.se" target="_blank">Riche</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Riche+Brasserie+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('food-2')">👍 <span class="vc" id="vc-food-2">0</span></button><span id="vl-food-2"></span></div></div>
+<div class="sc" id="card-food-3"><div class="ct"><div class="ce">🍳</div><div class="cb"><div class="cn">Rolfs Kök</div><div class="cd">Stockholm's most group-friendly restaurant. Swedish-European, consistently great.</div><div class="cm"><span class="pt">~£35pp</span><a class="lb" href="https://www.rolfskok.se" target="_blank">Rolfs Kök</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Rolfs+K%C3%B6k+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('food-3')">👍 <span class="vc" id="vc-food-3">0</span></button><span id="vl-food-3"></span></div></div>
+<div class="sc" id="card-food-4"><div class="ct"><div class="ce">🛒</div><div class="cb"><div class="cn">Airbnb Feast — Östermalm Food Hall</div><div class="cd">Stockholm's best indoor market. Pick up charcuterie, seafood, wine and eat at the Airbnb.</div><div class="cm"><span class="pt">~£20pp</span><a class="lb" href="https://en.ostermalmshallen.se/" target="_blank">Östermalmshallen</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=%C3%96stermalmshallen+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('food-4')">👍 <span class="vc" id="vc-food-4">0</span></button><span id="vl-food-4"></span></div></div>
+<div class="st">☕ Cafes &amp; Casual</div>
+<div class="sc" id="card-food-5"><div class="ct"><div class="ce">🌊</div><div class="cb"><div class="cn">Fotografiska Café — Waterfront</div><div class="cd">Photography museum on the Södermalm waterfront. Sweeping harbour views. Coffee, pastries, light meals.</div><div class="cm"><span class="pt">~£8pp</span><a class="lb" href="https://www.fotografiska.com/sto/" target="_blank">Fotografiska</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Fotografiska+Museum+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('food-5')">👍 <span class="vc" id="vc-food-5">0</span></button><span id="vl-food-5"></span></div></div>
+<div class="sc" id="card-food-6"><div class="ct"><div class="ce">🥐</div><div class="cb"><div class="cn">Fika Every Morning — Swedish Konditori</div><div class="cd">Cinnamon buns, cardamom twists, strong coffee. Non-negotiable daily ritual.</div><div class="cm"><span class="pt">~£5pp</span><a class="lb" href="https://www.visitstockholm.com/eat-drink/cafes/" target="_blank">Best cafés</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Konditori+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('food-6')">👍 <span class="vc" id="vc-food-6">0</span></button><span id="vl-food-6"></span></div></div>
+<div class="sc" id="card-food-7"><div class="ct"><div class="ce">🥞</div><div class="cb"><div class="cn">Brunch — Final Morning (Mon)</div><div class="cd">One last big sit-down brunch before the airport run. Checkout 11:00, flight 18:20.</div><div class="cm"><span class="pt">~£18pp</span><a class="lb" href="https://thatsup.co.uk/stockholm/guide/brunch-in-stockholm/" target="_blank">Brunch guide</a><a class="lb map" href="https://www.google.com/maps/search/?api=1&query=Brunch+Stockholm" target="_blank">📍 Map</a></div></div></div><div class="vr"><button class="vb" onclick="vote('food-7')">👍 <span class="vc" id="vc-food-7">0</span></button><span id="vl-food-7"></span></div></div>
+<div class="tb" style="margin-top:16px"><h3>🍺 Drinks Budget (per person)</h3><ul>
+<li>Beer in a bar: ~£9–12 &nbsp;|&nbsp; Cocktail: ~£12–15</li>
+<li>Beer from Systembolaget: ~£1.50–2.50 &nbsp;|&nbsp; Wine bottle: ~£6–11</li>
+<li>Systembolaget closes <strong>18:00 weekdays, 15:00 Saturdays</strong> — stock up early!</li>
+</ul></div>
 </div>
-
-<!-- TRANSPORT -->
+<div id="events" class="section">
+<div class="st">🎪 Confirmed Events — 1–4 May 2026</div>
+<div class="ecard confirmed"><div class="eh"><h3>🌳 Trädgården — Season Opening Night</h3><span class="dc g">Fri 1 May</span></div><p>Legendary outdoor club opens for its 2026 season on May 1st — your first night. Multiple zones, ping pong, incredible atmosphere.</p><span class="ec">✅ Confirmed — opens 1 May 2026</span>&nbsp;<a class="lb" href="https://www.tradgarden.com" target="_blank">Trädgården</a></div>
+<div class="ecard confirmed"><div class="eh"><h3>🎤 Silvana Imam — Naturkraft 10 Year Anniversary</h3><span class="dc g">Sat 2 May</span></div><p>Sweden's iconic hip-hop artist at Börsen. Doors 19:30, show 21:00.</p><span class="ec">✅ Confirmed via Tickster</span>&nbsp;<a class="lb" href="https://www.tickster.com/se/sv/events/zcdvyfy0mb5wyeu/2026-05-02/silvana-imam-naturkraft-10ar" target="_blank">Tickets</a></div>
+<div class="ecard confirmed"><div class="eh"><h3>🎸 AN ABSTRACT ILLUSION — The Sleeping Cities Tour</h3><span class="dc g">Sat 2 May</span></div><p>Swedish progressive metal at The Node in Stockholm. 7pm start.</p><span class="ec">✅ Confirmed via Bandsintown</span>&nbsp;<a class="lb" href="https://www.bandsintown.com/a/2919240-an-abstract-illusion" target="_blank">Check tickets</a></div>
+<div class="ecard confirmed"><div class="eh"><h3>🎵 Pentatonix — Avicii Arena</h3><span class="dc g">Sun 3 May</span></div><p>Global a cappella superstars at Avicii Arena (16,000 cap). Sunday night.</p><span class="ec">✅ Confirmed</span>&nbsp;<a class="lb" href="https://allevents.in/stockholm/pentatonix-stockholm-tickets/100029062465646" target="_blank">Check tickets</a></div>
+<div class="ecard confirmed"><div class="eh"><h3>🎸 Plini — Debaser Hornstulls Strand</h3><span class="dc g">Mon 4 May</span></div><p>Australian prog-rock guitarist at Debaser, 7pm. Brilliant final evening.</p><span class="ec">✅ Confirmed via Songkick</span>&nbsp;<a class="lb" href="https://www.songkick.com/concerts/42819088-plini-at-debaser-strand" target="_blank">Tickets</a></div>
+<div class="ecard confirmed"><div class="eh"><h3>🎡 Gröna Lund — Open All Weekend</h3><span class="dc g">All Weekend</span></div><p>Waterfront amusement park on Djurgården, opened 25 April, open all weekend.</p><span class="ec">✅ Confirmed</span>&nbsp;<a class="lb" href="https://www.gronalund.com/en" target="_blank">Gröna Lund</a></div>
+<div class="ecard tbc"><div class="eh"><h3>🎉 Första Maj — Labour Day</h3><span class="dc ">Fri 1 May</span></div><p>Public holiday — marches, gatherings, lively atmosphere. Most bars open.</p><span class="tc">⚠️ Annual event</span></div>
+</div>
 <div id="transport" class="section">
-  <div class="tips-box" style="margin-bottom:14px"><h3>🏠 Airbnb — Hörningsholmsvägen 2, Älvsjö 125 35</h3><ul><li>Check-in: <strong>Friday 1 May from 16:00</strong> · Checkout: <strong>Monday 4 May by 11:00</strong></li><li>~10 min walk to Älvsjö station → 9 min Pendeltåg to Stockholm Central</li><li>Trains every 10 min · Last train back ~01:15 · After: Uber ~20 min, ~£15/cab</li></ul></div>
-  <div class="section-title">✈️ Arrival: Airport → Airbnb</div>
-  <div class="route-box"><h3>🟢 Direct Pendeltåg — Arlanda → Älvsjö (Recommended)</h3><div class="route-row"><span class="route-node dark">ARN T5</span><span class="route-arrow">→ walk Sky City</span><span class="route-node">Arlanda C</span><span class="route-arrow">→ direct 49 min</span><span class="route-node yellow">Älvsjö Station</span><span class="route-arrow">→ ~10 min walk</span><span class="route-node">🏠 Airbnb</span></div><p style="font-size:0.76rem;color:#4a5568;margin-top:8px">Sky City between T4 &amp; T5. All southbound Pendeltåg go <strong>direct to Älvsjö</strong> — no changes. Every 30 min. <strong>Buy SL 72hr card here</strong> — covers all trains + metro for the whole trip.</p></div>
-  <div class="transport-option"><div class="transport-icon">🚕</div><div class="transport-info"><h3>2 x Ubers Direct (Best with Bags)</h3><p>Door to door, ~40 min. ~£60–75 per cab.</p><div class="transport-badges"><span class="t-badge group">Best with luggage</span><span class="t-badge fast">~40 min</span></div></div></div>
-  <div class="section-title">🚂 Daily: Älvsjö ↔ City</div>
-  <div class="route-box"><h3>🟢 Pendeltåg — every 10 min, 9 min journey</h3><div class="route-row"><span class="route-node">🏠 Airbnb</span><span class="route-arrow">→ ~10 min walk</span><span class="route-node yellow">Älvsjö Stn</span><span class="route-arrow">→ 9 min</span><span class="route-node">Stockholm Central</span></div><p style="font-size:0.76rem;color:#4a5568;margin-top:6px">Covered by SL 72hr card. Last train to Älvsjö: approximately <strong>01:15</strong>.</p></div>
-  <div class="section-title">⚠️ Departure: Mon 4 May</div>
-  <div class="route-box" style="border-color:#ECC94B;background:#FFFFF0"><h3 style="color:#744210">🟡 Checkout 11:00 · Flight 18:20 · Leave by 15:45</h3><div class="route-row"><span class="route-node">🏠 11:00</span><span class="route-arrow">→</span><span class="route-node yellow">Älvsjö</span><span class="route-arrow">→ 9 min</span><span class="route-node">Stockholm C</span><span class="route-arrow">→ Arlanda Express 18 min</span><span class="route-node dark">ARN T5</span></div><p style="font-size:0.76rem;color:#4a5568;margin-top:6px">Leave by <strong>15:30</strong> for train. Or 2 Ubers direct to Arlanda — leave by <strong>15:45</strong>.</p></div>
-  <div class="tips-box"><h3>💡 Key Info</h3><ul><li>Currency: <strong>SEK</strong> (~13 SEK = £1) · Sweden is cashless — card everywhere</li><li><strong>SL 72hr card:</strong> buy at Arlanda C on arrival</li><li>1 May is a public holiday — bars open, some shops close early</li><li>Emergency: <strong>112</strong></li></ul></div>
+<div class="tb" style="margin-bottom:14px"><h3>🏠 Airbnb — <a href="https://www.google.com/maps/search/?api=1&query=H%C3%B6rningsholmsv%C3%A4gen+2+%C3%84lvsj%C3%B6+Stockholm" target="_blank" style="color:#744210">Hörningsholmsvägen 2, Älvsjö</a></h3><ul>
+<li>Check-in: <strong>Friday 1 May from 16:00</strong> &nbsp;·&nbsp; Checkout: <strong>Monday 4 May by 11:00</strong></li>
+<li>~10 min walk to <a href="https://www.google.com/maps/search/?api=1&query=%C3%84lvsj%C3%B6+station+Stockholm" target="_blank"><strong>Älvsjö station</strong></a> → 9 min Pendeltåg to Stockholm Central</li>
+<li>Trains every 10 min · Last train back ~01:15 · After that: Uber ~20 min, ~£15/cab</li>
+</ul></div>
+
+<div class="st">✈️ Airport → Airbnb</div>
+<div class="rb"><h3>🟢 Pendeltåg — simplest option (~55 min total, cheapest)</h3>
+<div class="rr">
+<span class="rn d"><a href="https://www.google.com/maps/search/?api=1&query=Stockholm+Arlanda+Airport+Terminal+5" target="_blank" style="color:white">ARN T5</a></span><span class="ra">→ Sky City</span>
+<span class="rn">Arlanda C</span><span class="ra">→ direct Pendeltåg 49 min</span>
+<span class="rn y"><a href="https://www.google.com/maps/search/?api=1&query=%C3%84lvsj%C3%B6+station+Stockholm" target="_blank" style="color:#1a202c">Älvsjö</a></span><span class="ra">→ ~10 min walk</span>
+<span class="rn">🏠 Airbnb</span>
+</div>
+<p style="font-size:.76rem;color:#4a5568;margin-top:8px">Sky City is between T4 &amp; T5. All southbound trains go direct to Älvsjö. Every 30 min. <strong>Buy your SL 72hr card here</strong> — covers all trains and metro for the whole trip.</p>
+</div>
+<div class="to"><div class="ti">🚕</div><div class="tinfo"><h3>2 x Ubers Direct (~40 min, easier with bags)</h3><p>~£60–75 per cab. Most convenient with 7 people and luggage arriving together.</p><div class="tbadges"><span class="tbg g">Best with luggage</span><span class="tbg f">~40 min</span></div></div></div>
+
+<div class="st">🚂 Daily: Älvsjö ↔ City</div>
+<div class="rb"><h3>🟢 Pendeltåg — every 10 min, 9 min journey</h3>
+<div class="rr">
+<span class="rn">🏠 Airbnb</span><span class="ra">→ ~10 min walk</span>
+<span class="rn y"><a href="https://www.google.com/maps/search/?api=1&query=%C3%84lvsj%C3%B6+station+Stockholm" target="_blank" style="color:#1a202c">Älvsjö</a></span><span class="ra">→ 9 min</span>
+<span class="rn">Stockholm Central</span>
+</div>
+<p style="font-size:.76rem;color:#4a5568;margin-top:6px">Covered by SL 72hr card. Last train back to Älvsjö: ~<strong>01:15</strong>. After that: Uber home (~20 min, ~£15/cab).</p>
 </div>
 
-<!-- CHECKLIST -->
-<div id="checklist" class="section">
-  <div class="section-title">✅ Pre-Trip Checklist</div>
-  <div class="checklist-item"><input type="checkbox" id="c1" checked><label for="c1" style="text-decoration:line-through;color:#a0aec0">Flights booked ✅ <span>MAN 10:20 → ARN T5 13:40 Fri / ARN 18:20 → MAN Mon</span></label></div>
-  <div class="checklist-item"><input type="checkbox" id="c2" checked><label for="c2" style="text-decoration:line-through;color:#a0aec0">Airbnb booked ✅ <span>Hörningsholmsvägen 2, Älvsjö · Check-in Fri 16:00 · Checkout Mon 11:00</span></label></div>
-  <div class="checklist-item"><input type="checkbox" id="c3"><label for="c3">Share vote page with the group <span>Drop this link in the WhatsApp — everyone votes on their phone</span></label></div>
-  <div class="checklist-item"><input type="checkbox" id="c4"><label for="c4">Get Pentatonix tickets — Avicii Arena, Sun 3 May <span>Confirmed event — book before they sell out!</span></label></div>
-  <div class="checklist-item"><input type="checkbox" id="c5"><label for="c5">Book winning activities from the vote <span>madaxe.se · picklaparks.com · jarfallahyrkart.se · fcurban.com</span></label></div>
-  <div class="checklist-item"><input type="checkbox" id="c6"><label for="c6">Reserve restaurant table (Tak or Riche) <span>Book well in advance for a group of 7</span></label></div>
-  <div class="checklist-item"><input type="checkbox" id="c7"><label for="c7">Sort guestlist / table at club <span>Email Spy Bar, Café Opera or Berns a week ahead</span></label></div>
-  <div class="checklist-item"><input type="checkbox" id="c8"><label for="c8">Check Allsvenskan fixtures <span>flashscore.com — AIK, Djurgården or Hammarby home games Sat/Sun?</span></label></div>
-  <div class="checklist-item"><input type="checkbox" id="c9" checked><label for="c9" style="text-decoration:line-through;color:#a0aec0">Check Trädgården opening date ✅ <span>Confirmed open from 1 May 2026</span></label></div>
-  <div class="checklist-item"><input type="checkbox" id="c10"><label for="c10">Set up group kitty app <span>Monzo, Revolut or Splitwise — sort before you go</span></label></div>
-  <div class="checklist-item"><input type="checkbox" id="c11"><label for="c11">Download Uber &amp; Bolt apps <span>Essential for late nights after 01:15</span></label></div>
-  <div class="checklist-item"><input type="checkbox" id="c12"><label for="c12">Check all 7 passports are valid <span>Valid ID required for Sweden</span></label></div>
-  <div class="checklist-item"><input type="checkbox" id="c13"><label for="c13">Get travel insurance for all 7 <span>Especially recommended with all the activities planned</span></label></div>
-  <div class="checklist-item"><input type="checkbox" id="c14"><label for="c14">Buy SL 72hr travel card on arrival <span>At Arlanda C station in Sky City — buy immediately on landing</span></label></div>
+<div class="st">⚠️ Return: Airbnb → Arlanda (Mon 4 May)</div>
+<div class="rb" style="border-color:#ECC94B;background:#FFFFF0"><h3 style="color:#744210">🟡 Checkout 11:00 · Flight 18:20 · Leave by 15:30</h3>
+<div class="rr">
+<span class="rn">🏠 Checkout 11:00</span><span class="ra">→</span>
+<span class="rn y"><a href="https://www.google.com/maps/search/?api=1&query=%C3%84lvsj%C3%B6+station+Stockholm" target="_blank" style="color:#1a202c">Älvsjö</a></span><span class="ra">→ 9 min</span>
+<span class="rn">Stockholm C</span><span class="ra">→ Arlanda Express 18 min</span>
+<span class="rn d"><a href="https://www.google.com/maps/search/?api=1&query=Stockholm+Arlanda+Airport+Terminal+5" target="_blank" style="color:white">ARN T5 18:20</a></span>
+</div>
+<p style="font-size:.76rem;color:#4a5568;margin-top:6px">Leave Airbnb by <strong>15:30</strong> for train, or book 2 Ubers directly to Arlanda and leave by <strong>15:45</strong>.</p>
 </div>
 
+<div class="tb"><h3>💡 Key Info</h3><ul>
+<li>Currency: <strong>SEK</strong> (~13 SEK = £1) · Sweden is cashless — card everywhere</li>
+<li><strong>SL 72hr card:</strong> buy at Arlanda C — covers all trains + metro Fri–Mon</li>
+<li>1 May is a public holiday — bars open, some shops close early</li>
+<li>Emergency: <strong>112</strong></li>
+</ul></div>
 </div>
+<button id="show-cl-btn" class="show-cl">▼ Show checklist</button>
+<div id="checklist-wrap">
+<div class="st">✅ Pre-Trip Checklist</div>
+<div class="ci"><input type="checkbox" id="c1" checked><label for="c1" style="text-decoration:line-through;color:#a0aec0">Flights booked ✅ <span>MAN 10:20 → ARN T5 13:40 Fri / ARN 18:20 → MAN Mon</span></label></div>
+<div class="ci"><input type="checkbox" id="c2" checked><label for="c2" style="text-decoration:line-through;color:#a0aec0">Airbnb booked ✅ <span>Hörningsholmsvägen 2, Älvsjö · Check-in Fri 16:00 · Checkout Mon 11:00</span></label></div>
+<div class="ci"><input type="checkbox" id="c3" checked><label for="c3" style="text-decoration:line-through;color:#a0aec0">Trädgården confirmed opening 1 May ✅ <span>Opens exactly on arrival night — tradgarden.com</span></label></div>
+<div class="ci"><input type="checkbox" id="c4" ><label for="c4">Share this page with the group &amp; get everyone voting <span>Get all 7 lads to +1 their favourites before you book</span></label></div>
+<div class="ci"><input type="checkbox" id="c5" ><label for="c5">Confirm who's leaving Sunday vs Monday <span>Saturday must work for everyone — sort logistics early</span></label></div>
+<div class="ci"><input type="checkbox" id="c6" ><label for="c6">Book winning activities from the vote <span>madaxe.se · ascaropadel.com · jarfallahyrkart.se · fcurban.com · onairgameshows.com</span></label></div>
+<div class="ci"><input type="checkbox" id="c7" ><label for="c7">Reserve restaurant table for Saturday dinner <span>Tak or Riche — book well in advance for group of 7</span></label></div>
+<div class="ci"><input type="checkbox" id="c8" ><label for="c8">Sort guestlist / table at club for Saturday <span>Email Spy Bar, Café Opera or Berns a week ahead</span></label></div>
+<div class="ci"><input type="checkbox" id="c9" ><label for="c9">Get Pentatonix tickets — Avicii Arena, Sun 3 May <span>Confirmed event — check if everyone staying Sunday wants in</span></label></div>
+<div class="ci"><input type="checkbox" id="c10" ><label for="c10">Check Allsvenskan fixtures — Sat 2 May <span>flashscore.com — AIK, Djurgården or Hammarby home games?</span></label></div>
+<div class="ci"><input type="checkbox" id="c11" ><label for="c11">Set up group kitty app <span>Monzo, Revolut or Splitwise — sort it before you go</span></label></div>
+<div class="ci"><input type="checkbox" id="c12" ><label for="c12">Download Uber &amp; Bolt apps <span>Essential for late nights home to Älvsjö after 01:15</span></label></div>
+<div class="ci"><input type="checkbox" id="c13" ><label for="c13">Check all 7 passports are valid <span>Valid ID required for Sweden</span></label></div>
+<div class="ci"><input type="checkbox" id="c14" ><label for="c14">Get travel insurance for all 7 <span>Especially recommended with all the activities planned</span></label></div>
+<div class="ci"><input type="checkbox" id="c15" ><label for="c15">Buy SL 72hr travel card on arrival <span>At Arlanda C in Sky City — buy immediately on landing</span></label></div>
+</div>
+</div><!-- content -->
 <div class="footer">Stockholm Stag Do · Fri 1 – Mon 4 May 2026 · Hörningsholmsvägen 2, Älvsjö · Skål! 🍺</div>
 <script>
-  const votes={},userVotes={};
-  function showTab(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
-  function getGroup(id){const p=id.split('-');return p.length===2?p[0]:p[0]+'-'+p[1];}
-  function vote(id){if(!votes[id])votes[id]=0;if(userVotes[id]){votes[id]--;userVotes[id]=false;document.querySelector(`[onclick="vote('${id}')"]`).classList.remove('active');}else{votes[id]++;userVotes[id]=true;document.querySelector(`[onclick="vote('${id}')"]`).classList.add('active');}document.getElementById('vc-'+id).textContent=votes[id];updateLeaders(id);}
-  function updateLeaders(cid){const g=getGroup(cid);const ids=[];document.querySelectorAll('[onclick^="vote("]').forEach(b=>{const m=b.getAttribute('onclick').match(/vote\('(.+)'\)/);if(m&&getGroup(m[1])===g)ids.push(m[1]);});const mx=Math.max(...ids.map(i=>votes[i]||0));ids.forEach(i=>{const c=document.getElementById('card-'+i),l=document.getElementById('vl-'+i);if(!c)return;const v=votes[i]||0;c.classList.remove('top-voted','voted');l.innerHTML='';if(v>0&&v===mx){c.classList.add('top-voted');l.innerHTML='<span class="leader-badge">🏆 Leading</span>';}else if(userVotes[i]){c.classList.add('voted');}});}
-  document.querySelectorAll('input[type="checkbox"]').forEach(cb=>{cb.addEventListener('change',function(){const l=this.nextElementSibling;l.style.textDecoration=this.checked?'line-through':'none';l.style.color=this.checked?'#a0aec0':'';});});
-</script>
-</body>
+const votes={},userVotes={};
+function showTab(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+function getGroup(id){return id.split('-')[0];}
+function vote(id){
+  if(!votes[id])votes[id]=0;
+  if(userVotes[id]){votes[id]--;userVotes[id]=false;document.querySelector(`[onclick="vote('${id}')"]`).classList.remove('active');}
+  else{votes[id]++;userVotes[id]=true;document.querySelector(`[onclick="vote('${id}')"]`).classList.add('active');}
+  document.getElementById(`vc-${id}`).textContent=votes[id];
+  updateLeaders(id);
+}
+function updateLeaders(changedId){
+  const group=getGroup(changedId);
+  const allBtns=document.querySelectorAll('[onclick^="vote("]');
+  const groupIds=[];
+  allBtns.forEach(btn=>{const m=btn.getAttribute('onclick').match(/vote\('(.+)'\)/);if(m&&getGroup(m[1])===group)groupIds.push(m[1]);});
+  const maxV=Math.max(...groupIds.map(id=>votes[id]||0));
+  groupIds.forEach(id=>{
+    const card=document.getElementById(`card-${id}`);
+    const lbl=document.getElementById(`vl-${id}`);
+    if(!card)return;
+    const v=votes[id]||0;
+    card.classList.remove('top-voted','voted');lbl.innerHTML='';
+    if(v>0&&v===maxV){card.classList.add('top-voted');lbl.innerHTML='<span class="lb-badge">🏆 Leading</span>';}
+    else if(userVotes[id]){card.classList.add('voted');}
+  });
+}
+document.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+  cb.addEventListener('change',function(){
+    const l=this.nextElementSibling;
+    l.style.textDecoration=this.checked?'line-through':'none';
+    l.style.color=this.checked?'#a0aec0':'';
+  });
+});
+document.getElementById('show-cl-btn').onclick=function(){
+  const w=document.getElementById('checklist-wrap');
+  w.style.display=w.style.display==='block'?'none':'block';
+  this.textContent=w.style.display==='block'?'▲ Hide checklist':'▼ Show checklist';
+};
+</script></body>
 </html>
